@@ -2,4 +2,4 @@
 // Project: object-to-json-refs
 // Definitions by: Jacquemin Serge <http://busi.eu/>
 
-declare function MyFunction(name: string): void;
+// declare function MyFunction(name: string): void;
