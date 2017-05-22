@@ -1,0 +1,26 @@
+{
+  "name": "object-to-json-refs",
+  "version": "1.0.0",
+  "description": "Convert back and from object to JSON with references",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serge-jacquemin-busi/object-to-json-refs.git"
+  },
+  "keywords": [
+    "JSON",
+    "reference",
+    "pointer",
+    "convert",
+    "object"
+  ],
+  "author": "Jacquemin Serge <serge.jacquemin@busi.eu> (http://busi.eu/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/serge-jacquemin-busi/object-to-json-refs/issues"
+  },
+  "homepage": "https://github.com/serge-jacquemin-busi/object-to-json-refs#readme"
+}
