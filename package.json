@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "tsc",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/serge-jacquemin-busi/object-to-json-refs#readme",
   "devDependencies": {
+    "@types/jasmine": "^2.5.47",
     "jasmine": "^2.6.0"
   }
 }
