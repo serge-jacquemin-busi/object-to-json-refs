@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/serge-jacquemin-busi/object-to-json-refs/issues"
   },
-  "homepage": "https://github.com/serge-jacquemin-busi/object-to-json-refs#readme"
+  "homepage": "https://github.com/serge-jacquemin-busi/object-to-json-refs#readme",
+  "devDependencies": {
+    "jasmine": "^2.6.0"
+  }
 }
