@@ -1,11 +1,20 @@
-export class ObjectNode {
-    public wholePath: string;
-    public parent?: ObjectNode;
-    public propertyOfParent?: string;
-    public realValue: any;
+export class NodeObject {
+    public uniqueId: number = 0;
+    public resolution: any;
+
+    private static lastUniqueId = 0;
+
+    constructor(
+        public wholePath: string,
+        public sourceReference: any,
+        public parentNode?: NodeObject,
+        public propertyOfParent?: string
+        ) {
+        this.uniqueId = ++NodeObject.lastUniqueId;
+    }
 }
 
-export function ClosestFromRoot(a: ObjectNode, b: ObjectNode): number {
+export function ClosestFromRoot(a: NodeObject, b: NodeObject): number {
     if (a.wholePath === b.wholePath) {
         return 0;
     }
@@ -19,6 +28,6 @@ export function ClosestFromRoot(a: ObjectNode, b: ObjectNode): number {
     return a.wholePath < b.wholePath ? -1 : 1;
 }
 
-export function GetClosestFromRoot(nodes: Array<ObjectNode>): ObjectNode {
+export function GetClosestFromRoot(nodes: Array<NodeObject>): NodeObject {
     return nodes.sort(ClosestFromRoot)[0];
 }

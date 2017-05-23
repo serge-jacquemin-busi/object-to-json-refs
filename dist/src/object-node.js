@@ -1,8 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class ObjectNode {
+class NodeObject {
+    constructor(wholePath, sourceReference, parentNode, propertyOfParent) {
+        this.wholePath = wholePath;
+        this.sourceReference = sourceReference;
+        this.parentNode = parentNode;
+        this.propertyOfParent = propertyOfParent;
+        this.uniqueId = 0;
+        this.uniqueId = ++NodeObject.lastUniqueId;
+    }
 }
-exports.ObjectNode = ObjectNode;
+NodeObject.lastUniqueId = 0;
+exports.NodeObject = NodeObject;
 function ClosestFromRoot(a, b) {
     if (a.wholePath === b.wholePath) {
         return 0;
