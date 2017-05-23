@@ -38,5 +38,28 @@ describe('ConvertToJsonRefsReady', () => {
             expect(result).toBe(obj);
         })
     });
+
+    [
+        [(() => {
+            const a: any = {};
+            a['b'] = a;
+            return a;
+        })(), {b: { $ref: "" }}],
+        [(() => {
+            const a: any = {b: {}};
+            a.b['c'] = a.b;
+            return a;
+        })(), {a: {b: { $ref: "/b" }}}],        
+    ].forEach(([obj, expected]) => {
+        it(`should return object with simple cycle changed approprietly: ${obj}`, () => {
+            // Arrange
+
+            // Act
+            const result = ConvertToJsonRefsReady(obj);
+
+            // Assert
+            expect(result).toBe(expected);
+        })
+    });
     
 });
