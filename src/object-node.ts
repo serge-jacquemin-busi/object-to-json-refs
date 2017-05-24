@@ -25,6 +25,6 @@ export function ClosestFromRoot(a: Node, b: Node): number {
     return a.path < b.path ? -1 : 1;
 }
 
-export function GetClosestFromRoot(nodes: Array<Node>): Node {
+export function GetOneWithShortestPath(nodes: Array<Node>): Node {
     return nodes.sort(ClosestFromRoot)[0];
 }

@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "scripts": {
-    "pretest": "tsc",
+    "pretest": "rmdir dist\\spec /S /Q & tsc",
     "test": "jasmine"
   },
   "repository": {
