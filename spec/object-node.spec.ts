@@ -1,11 +1,11 @@
-import { NodeObject, ClosestFromRoot, GetClosestFromRoot } from '../src/object-node';
+import { Node, ClosestFromRoot, GetClosestFromRoot } from '../src/object-node';
 
 describe('ClosestFromRoot', () => {
     it('should return 0 when wholePath is identical', () => {
         // Arrange
         const wholePath = Math.random().toString();
-        const a = new NodeObject(wholePath, {});
-        const b = new NodeObject(wholePath, {});
+        const a = new Node(wholePath, {});
+        const b = new Node(wholePath, {});
         
         // Act
         const result = ClosestFromRoot(a, b);
@@ -18,8 +18,8 @@ describe('ClosestFromRoot', () => {
         // Arrange
         const greaterLength = 1 + Math.floor(Math.random() * 10);
         const lesserLength = Math.floor(Math.random() * greaterLength);
-        const a = new NodeObject('x'.repeat(lesserLength), {});
-        const b = new NodeObject('x'.repeat(greaterLength), {});        
+        const a = new Node('x'.repeat(lesserLength), {});
+        const b = new Node('x'.repeat(greaterLength), {});        
         
         // Act
         const result = ClosestFromRoot(a, b);
@@ -32,8 +32,8 @@ describe('ClosestFromRoot', () => {
         // Arrange
         const greaterLength = 1 + Math.floor(Math.random() * 10);
         const lesserLength = Math.floor(Math.random() * greaterLength);
-        const a = new NodeObject('x'.repeat(greaterLength), {});
-        const b = new NodeObject('x'.repeat(lesserLength), {});        
+        const a = new Node('x'.repeat(greaterLength), {});
+        const b = new Node('x'.repeat(lesserLength), {});        
         
         // Act
         const result = ClosestFromRoot(a, b);
@@ -45,8 +45,8 @@ describe('ClosestFromRoot', () => {
     it(`should return negative number when wholePath of arguments are of same length but first'one is alphabetically before second argument's one`, () => {
         // Arrange
         const prefix = Math.random().toString();
-        const a = new NodeObject(`${prefix}A`, {});
-        const b = new NodeObject(`${prefix}Z`, {});        
+        const a = new Node(`${prefix}A`, {});
+        const b = new Node(`${prefix}Z`, {});        
         
         // Act
         const result = ClosestFromRoot(a, b);
@@ -58,8 +58,8 @@ describe('ClosestFromRoot', () => {
     it(`should return positive number when wholePath of arguments are of same length but first'one is alphabetically after second argument's one`, () => {
         // Arrange
         const prefix = Math.random().toString();
-        const a = new NodeObject(`${prefix}Z`, {});
-        const b = new NodeObject(`${prefix}A`, {});        
+        const a = new Node(`${prefix}Z`, {});
+        const b = new Node(`${prefix}A`, {});        
         
         // Act
         const result = ClosestFromRoot(a, b);
@@ -72,7 +72,7 @@ describe('ClosestFromRoot', () => {
 describe('GetClosestFromRoot', () => {
     it('should call sort with the right function', () => {
         // Arrange
-        const array: Array<NodeObject> = [];
+        const array: Array<Node> = [];
         const arraySpy = spyOn(array, 'sort').and.returnValue(array);
         
         // Act
@@ -84,12 +84,12 @@ describe('GetClosestFromRoot', () => {
 
     it('should return first element after sort', () => {
         // Arrange
-        const unsortedArray: Array<NodeObject> = new Array(10)
+        const unsortedArray: Array<Node> = new Array(10)
             .fill(null)
             .map(() => ({
-                wholePath: Math.random().toString(),
-                sourceReference: {}
-            } as NodeObject));
+                path: Math.random().toString(),
+                target: {}
+            } as Node));
         const arraySpy = spyOn(unsortedArray, 'sort').and.returnValue(unsortedArray);
         
         // Act
