@@ -2,11 +2,11 @@
 Convert back and from object to JSON with references
 
 ## Demo
-### Code (Typescript):
-````typescript
-import { ConvertToJsonRefsReady } from 'object-to-json-refs';
+### Code:
+````javascript
+var objectToJsonRefs = require("object-to-json-refs/dist/src")
 
-const obj: any = {
+const obj = {
     fruit: {
         name: 'banana'
     },
@@ -26,8 +26,8 @@ const obj: any = {
 obj.fruit.favoriteCelebrity = obj.celebrities[1];
 obj.robert = obj.celebrities[0];
 obj.knownRatings = [ obj.vegetable.rating ];
-
-const result = ConvertToJsonRefsReady(obj);
+ 
+const result = objectToJsonRefs.ConvertToJsonRefsReady(obj);
 console.log(result);
 ````
 ### Output:
