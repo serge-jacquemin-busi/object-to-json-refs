@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// export function ConvertToJsonRefsReady(obj: any): any {
-//     const knownNodes: ReferenceToNode = new WeakMap<any, Node>();
-//     const keptNodes: NodeDictionary = {};
-//     const root = new Node('', obj);
-//     ConvertToNodeGraph(root, knownNodes, keptNodes);
-//     for (let uniqueId in keptNodes) {
-//         const keptNode = keptNodes[uniqueId];
-//     }
-//     return root;
-// } 
+const node_graph_1 = require("./node-graph");
+const resolve_1 = require("./resolve");
+function ConvertToJsonRefsReady(obj) {
+    const shortestPathNodes = new WeakMap();
+    const node = node_graph_1.ConvertToNodeGraph(obj, '', shortestPathNodes);
+    const result = resolve_1.Resolve(node, shortestPathNodes);
+    return result;
+}
+exports.ConvertToJsonRefsReady = ConvertToJsonRefsReady;
 //# sourceMappingURL=index.js.map

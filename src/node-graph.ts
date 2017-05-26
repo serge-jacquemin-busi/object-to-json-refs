@@ -2,6 +2,16 @@ import { Node, GetOneWithShortestPath } from './object-node';
 
 export type ReferenceToNode = WeakMap<any, Node>;
 
+/**
+ * Convert q target into a Node (tree) using argument path as its root path
+ * and argument shortestPathNodes as its shortestPathNodes
+ * 
+ * @export
+ * @param {*} obj 
+ * @param {string} [path=''] 
+ * @param {ReferenceToNode} [shortestPathNodes=new WeakMap<any, Node>()] 
+ * @returns {Node} 
+ */
 export function ConvertToNodeGraph(
     obj: any,
     path: string = '',
@@ -27,68 +37,22 @@ export function ConvertToNodeGraph(
     return node;
 }
 
-// export function ConvertToNodeGraph(
-//     node: NodeObject,
-//     knownNodes: NodeWeakMap,
-//     keptNodes: NodeDictionary
-// ): NodeObject {
-//     const reference = node.sourceReference;
-//     if (reference == null || typeof (reference) !== 'object') {
-//         node.value = reference;
-//         return node;
-//     }
-
-//     const wasUnknown = !knownNodes.has(reference);
-//     const bestKnowNode = challengeKnowNodes(node, knownNodes);
-
-//     if (wasUnknown) {
-//         node.value = {};
-//         const properties = Object.getOwnPropertyNames(reference)
-//             .filter(prop => !Array.isArray(reference) || prop !== 'length');
-
-//         properties.forEach(prop => {
-//             const childNode = new NodeObject(
-//                 `${node.wholePath}/${prop}`,
-//                 reference[prop],
-//                 node,
-//                 prop
-//             );
-//             node.value[prop] = ConvertToNodeGraph(childNode, knownNodes, keptNodes);
-//         });
-
-//         return node;
-//     }
-
-//     if (bestKnowNode !== node) {
-//         delete keptNodes[node.uniqueId];
-//         keptNodes[bestKnowNode.uniqueId] = bestKnowNode;
-
-//         return bestKnowNode;
-//     }
-
-//     return node;
-
-// }
-
-
 /**
- * Determine if the node is the best match to keep compared to the already known nodes
- * 
- * Stores and returns the best match
+ * Determine if the node has the shortest know path associated with its target
+ * and, if so, store it in shortestPathNode 
  * 
  * @param {ObjectNode} node 
  * @param {NodeWeakMap} knownNodes 
  * @returns {*} 
  */
-function ChallengeShortestPathNode(node: Node, shortestPathNode: ReferenceToNode): any {
+function ChallengeShortestPathNode(node: Node, shortestPathNode: ReferenceToNode): void {
     const existingNode = shortestPathNode.get(node.target);
 
     if (typeof (existingNode) === 'undefined') {
         shortestPathNode.set(node.target, node);
-        return node;
+        return;
     }
 
     const closestFromRoot = GetOneWithShortestPath([node, existingNode]);
     shortestPathNode.set(node.target, closestFromRoot);
-    return closestFromRoot;
 }

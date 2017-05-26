@@ -1,16 +1,12 @@
-import { Node, GetOneWithShortestPath } from './object-node';
+import { Node } from './object-node';
+import { ConvertToNodeGraph, ReferenceToNode } from './node-graph';
+import { Resolve } from './resolve';
 
-// export function ConvertToJsonRefsReady(obj: any): any {
-//     const knownNodes: ReferenceToNode = new WeakMap<any, Node>();
-//     const keptNodes: NodeDictionary = {};
 
-//     const root = new Node('', obj);
+export function ConvertToJsonRefsReady(obj: any): any {
+    const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
+    const node = ConvertToNodeGraph(obj, '', shortestPathNodes);
+    const result = Resolve(node, shortestPathNodes);
 
-//     ConvertToNodeGraph(root, knownNodes, keptNodes);
-
-//     for (let uniqueId in keptNodes) {
-//         const keptNode = keptNodes[uniqueId];
-//     }
-
-//     return root;
-// }
+    return result;
+}
