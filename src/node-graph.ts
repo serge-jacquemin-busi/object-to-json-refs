@@ -23,10 +23,9 @@ export function ConvertToNodeGraph(
         return node;
     }
 
-    const knowReference = shortestPathNodes.has(obj);
-    ChallengeShortestPathNode(node, shortestPathNodes);
+    const isShortestPathNode = ChallengeShortestPathNode(node, shortestPathNodes);
 
-    if (knowReference) {
+    if (!isShortestPathNode) {
         return node;
     }
 
@@ -41,18 +40,25 @@ export function ConvertToNodeGraph(
  * Determine if the node has the shortest know path associated with its target
  * and, if so, store it in shortestPathNode 
  * 
+ * Returns true if the node is the one having shortest know path, false otherwise
+ * 
  * @param {ObjectNode} node 
  * @param {NodeWeakMap} knownNodes 
  * @returns {*} 
  */
-function ChallengeShortestPathNode(node: Node, shortestPathNode: ReferenceToNode): void {
+function ChallengeShortestPathNode(node: Node, shortestPathNode: ReferenceToNode): boolean {
     const existingNode = shortestPathNode.get(node.target);
 
     if (typeof (existingNode) === 'undefined') {
         shortestPathNode.set(node.target, node);
-        return;
+        return true;
     }
 
     const closestFromRoot = GetOneWithShortestPath([node, existingNode]);
-    shortestPathNode.set(node.target, closestFromRoot);
+    if (closestFromRoot === node) {
+        shortestPathNode.set(node.target, closestFromRoot);
+        return true;
+    }
+
+    return false;
 }

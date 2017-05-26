@@ -16,9 +16,8 @@ function ConvertToNodeGraph(obj, path = '', shortestPathNodes = new WeakMap()) {
     if (obj == null || typeof (obj) !== 'object') {
         return node;
     }
-    const knowReference = shortestPathNodes.has(obj);
-    ChallengeShortestPathNode(node, shortestPathNodes);
-    if (knowReference) {
+    const isShortestPathNode = ChallengeShortestPathNode(node, shortestPathNodes);
+    if (!isShortestPathNode) {
         return node;
     }
     for (let property of Object.keys(obj)) {
@@ -31,6 +30,8 @@ exports.ConvertToNodeGraph = ConvertToNodeGraph;
  * Determine if the node has the shortest know path associated with its target
  * and, if so, store it in shortestPathNode
  *
+ * Returns true if the node is the one having shortest know path, false otherwise
+ *
  * @param {ObjectNode} node
  * @param {NodeWeakMap} knownNodes
  * @returns {*}
@@ -39,9 +40,13 @@ function ChallengeShortestPathNode(node, shortestPathNode) {
     const existingNode = shortestPathNode.get(node.target);
     if (typeof (existingNode) === 'undefined') {
         shortestPathNode.set(node.target, node);
-        return;
+        return true;
     }
     const closestFromRoot = object_node_1.GetOneWithShortestPath([node, existingNode]);
-    shortestPathNode.set(node.target, closestFromRoot);
+    if (closestFromRoot === node) {
+        shortestPathNode.set(node.target, closestFromRoot);
+        return true;
+    }
+    return false;
 }
 //# sourceMappingURL=node-graph.js.map

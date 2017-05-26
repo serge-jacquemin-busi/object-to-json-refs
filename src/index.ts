@@ -6,6 +6,9 @@ import { Resolve } from './resolve';
 export function ConvertToJsonRefsReady(obj: any): any {
     const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
     const node = ConvertToNodeGraph(obj, '', shortestPathNodes);
+
+    console.log(node);
+
     const result = Resolve(node, shortestPathNodes);
 
     return result;
