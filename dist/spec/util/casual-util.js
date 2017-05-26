@@ -7,13 +7,12 @@ exports.primitives = [
     true,
     null
 ];
-function getRandomPrimitive() {
+function GetRandomPrimitive() {
     return getRandom(...exports.primitives);
 }
-exports.getRandomPrimitive = getRandomPrimitive;
+exports.GetRandomPrimitive = GetRandomPrimitive;
 function getRandom(...values) {
     const shuffledValues = values.slice().sort((a, b) => Math.random() - 0.5);
     return shuffledValues[0];
 }
-exports.getRandom = getRandom;
 //# sourceMappingURL=casual-util.js.map

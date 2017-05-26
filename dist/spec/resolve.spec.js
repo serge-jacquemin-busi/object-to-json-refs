@@ -10,7 +10,7 @@ describe('Resolve', () => {
     when node.target is a primitive`, () => {
         // Arrange
         const shortestPathNodes = new WeakMap();
-        const primitive = casual_util_1.getRandomPrimitive();
+        const primitive = casual_util_1.GetRandomPrimitive();
         const node = new object_node_1.Node(casual.word, primitive);
         // Act
         const result = resolve_1.Resolve(node, shortestPathNodes);
@@ -63,8 +63,8 @@ describe('Resolve', () => {
     it('should successfully resolve a complexe object', () => {
         // Arrange
         const expected = [
-            casual_util_1.getRandomPrimitive(),
-            { a: casual_util_1.getRandomPrimitive(), b: { $ref: casual.word }, c: [casual_util_1.getRandomPrimitive()] }
+            casual_util_1.GetRandomPrimitive(),
+            { a: casual_util_1.GetRandomPrimitive(), b: { $ref: casual.word }, c: [casual_util_1.GetRandomPrimitive()] }
         ];
         const shortestPathNodes = new WeakMap();
         const node = new object_node_1.Node('', expected);

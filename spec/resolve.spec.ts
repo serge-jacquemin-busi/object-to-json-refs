@@ -1,7 +1,7 @@
 import { Node } from '../src/object-node';
 import { ReferenceToNode } from '../src/node-graph';
 import { Resolve } from '../src/resolve';
-import { primitives, getRandomPrimitive, getRandom } from './util/casual-util';
+import { primitives, GetRandomPrimitive } from './util/casual-util';
 import * as casual from 'casual';
 
 
@@ -13,7 +13,7 @@ describe('Resolve', () => {
         () => {
             // Arrange
             const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
-            const primitive = getRandomPrimitive();
+            const primitive = GetRandomPrimitive();
             const node = new Node(casual.word, primitive);
 
             // Act
@@ -81,8 +81,8 @@ describe('Resolve', () => {
     it('should successfully resolve a complexe object', () => {
         // Arrange
         const expected: any = [
-            getRandomPrimitive(),
-            { a: getRandomPrimitive(), b: { $ref: casual.word }, c: [getRandomPrimitive()] }
+            GetRandomPrimitive(),
+            { a: GetRandomPrimitive(), b: { $ref: casual.word }, c: [GetRandomPrimitive()] }
         ];
         const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
         const node = new Node('', expected);

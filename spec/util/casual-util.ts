@@ -7,11 +7,11 @@ export const primitives = [
     null
 ];
 
-export function getRandomPrimitive(): number | string | boolean | null {
+export function GetRandomPrimitive(): number | string | boolean | null {
     return getRandom(...primitives);
 }
 
-export function getRandom(...values: Array<any>): any {
+function getRandom(...values: Array<any>): any {
     const shuffledValues = values.slice().sort((a, b) => Math.random() - 0.5);
     return shuffledValues[0];
 }

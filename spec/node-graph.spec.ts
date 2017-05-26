@@ -1,6 +1,6 @@
 import { Node } from '../src/object-node';
 import { ConvertToNodeGraph, ReferenceToNode } from '../src/node-graph';
-import { getRandomPrimitive } from './util/casual-util';
+import { GetRandomPrimitive } from './util/casual-util';
 import * as casual from 'casual';
 import './util/array-util';
 
@@ -8,7 +8,7 @@ describe('ConvertToNodeGraph', () => {
     it(`sould retrieve node with its target and path properly set
     when target is a primitive`, () => {
             // Arrange
-            const target = getRandomPrimitive();
+            const target = GetRandomPrimitive();
             const path = casual.word;
 
             // Act
@@ -50,7 +50,7 @@ describe('ConvertToNodeGraph', () => {
     it(`sould retrieve node with no children
     when target is a primitive`, () => {
             // Arrange
-            const target = getRandomPrimitive();
+            const target = GetRandomPrimitive();
 
             // Act
             const result = ConvertToNodeGraph(target);
@@ -90,7 +90,7 @@ describe('ConvertToNodeGraph', () => {
                 .map(() => casual.word)
                 .distinct()
                 .sort()
-                .map(name => ({ name: name, value: getRandomPrimitive() }));
+                .map(name => ({ name: name, value: GetRandomPrimitive() }));
             const target = randomProperties.reduce((obj, property) => Object.assign(obj, {
                 [property.name]: property.value
             }), {});
@@ -109,7 +109,7 @@ describe('ConvertToNodeGraph', () => {
     when target is a reference to an array having values`, () => {
             // Arrange
             const target = new Array(20).fill(null)
-                .map(() => getRandomPrimitive());
+                .map(() => GetRandomPrimitive());
 
             // Act
             const result = ConvertToNodeGraph(target);
@@ -126,22 +126,22 @@ describe('ConvertToNodeGraph', () => {
     when target is a reference to an object being a tree of primitives and objects`, () => {
             // Arrange
             const target = {
-                [casual.word]: getRandomPrimitive(),
+                [casual.word]: GetRandomPrimitive(),
                 [casual.word]: {
-                    [casual.word]: getRandomPrimitive()
+                    [casual.word]: GetRandomPrimitive()
                 },
                 [casual.word]: {
-                    [casual.word]: getRandomPrimitive(),
+                    [casual.word]: GetRandomPrimitive(),
                     [casual.word]: {
-                        [casual.word]: getRandomPrimitive()
+                        [casual.word]: GetRandomPrimitive()
                     }
                 },
                 [casual.word]: {
-                    [casual.word]: getRandomPrimitive(),
+                    [casual.word]: GetRandomPrimitive(),
                     [casual.word]: {
-                        [casual.word]: getRandomPrimitive(),
+                        [casual.word]: GetRandomPrimitive(),
                         [casual.word]: {
-                            [casual.word]: getRandomPrimitive()
+                            [casual.word]: GetRandomPrimitive()
                         }
                     }
                 }
@@ -164,22 +164,22 @@ describe('ConvertToNodeGraph', () => {
     when target is a reference to an array being a tree of primitives and arrays`, () => {
             // Arrange
             const target = [
-                getRandomPrimitive(),
+                GetRandomPrimitive(),
                 [
-                    getRandomPrimitive()
+                    GetRandomPrimitive()
                 ],
                 [
-                    getRandomPrimitive(),
+                    GetRandomPrimitive(),
                     [
-                        getRandomPrimitive()
+                        GetRandomPrimitive()
                     ]
                 ],
                 [
-                    getRandomPrimitive(),
+                    GetRandomPrimitive(),
                     [
-                        getRandomPrimitive(),
+                        GetRandomPrimitive(),
                         [
-                            getRandomPrimitive()
+                            GetRandomPrimitive()
                         ]
                     ]
                 ]
@@ -201,22 +201,22 @@ describe('ConvertToNodeGraph', () => {
     when target is a reference to an object being a tree of mixed types`, () => {
             // Arrange
             const target = {
-                [casual.word]: getRandomPrimitive(),
+                [casual.word]: GetRandomPrimitive(),
                 [casual.word]: [
-                    getRandomPrimitive()
+                    GetRandomPrimitive()
                 ],
                 [casual.word]: {
-                    [casual.word]: getRandomPrimitive(),
+                    [casual.word]: GetRandomPrimitive(),
                     [casual.word]: [
-                        getRandomPrimitive()
+                        GetRandomPrimitive()
                     ]
                 },
                 [casual.word]: [
-                    getRandomPrimitive(),
+                    GetRandomPrimitive(),
                     {
-                        [casual.word]: getRandomPrimitive(),
+                        [casual.word]: GetRandomPrimitive(),
                         [casual.word]: [
-                            getRandomPrimitive()
+                            GetRandomPrimitive()
                         ]
                     }
                 ]
@@ -240,22 +240,22 @@ describe('ConvertToNodeGraph', () => {
             // Arrange
             const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
             const target = {
-                [casual.word]: getRandomPrimitive(),
+                [casual.word]: GetRandomPrimitive(),
                 [casual.word]: [
-                    getRandomPrimitive()
+                    GetRandomPrimitive()
                 ],
                 [casual.word]: {
-                    [casual.word]: getRandomPrimitive(),
+                    [casual.word]: GetRandomPrimitive(),
                     [casual.word]: [
-                        getRandomPrimitive()
+                        GetRandomPrimitive()
                     ]
                 },
                 [casual.word]: [
-                    getRandomPrimitive(),
+                    GetRandomPrimitive(),
                     {
-                        [casual.word]: getRandomPrimitive(),
+                        [casual.word]: GetRandomPrimitive(),
                         [casual.word]: [
-                            getRandomPrimitive()
+                            GetRandomPrimitive()
                         ]
                     }
                 ]
@@ -285,14 +285,14 @@ describe('ConvertToNodeGraph', () => {
             // Arrange
             const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
             const target: any = {
-                a: getRandomPrimitive(),
+                a: GetRandomPrimitive(),
                 b: [
-                    getRandomPrimitive()
+                    GetRandomPrimitive()
                 ],
                 c: {
-                    a: getRandomPrimitive(),
+                    a: GetRandomPrimitive(),
                     b: [
-                        getRandomPrimitive()
+                        GetRandomPrimitive()
                     ]
                 }
             }
