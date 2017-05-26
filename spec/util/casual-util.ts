@@ -2,7 +2,7 @@ import *  as casual from 'casual';
 
 export const primitives = [
     casual.integer(),
-    casual.text,
+    casual.word,
     true,
     null
 ];

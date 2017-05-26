@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const casual = require("casual");
 exports.primitives = [
     casual.integer(),
-    casual.text,
+    casual.word,
     true,
     null
 ];

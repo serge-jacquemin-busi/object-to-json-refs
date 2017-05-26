@@ -21,7 +21,7 @@ export function ConvertToNodeGraph(
     }
 
     for (let property of Object.keys(obj)) {
-        node.children[property] = ConvertToNodeGraph(obj[property], `${path}/property`, shortestPathNodes);
+        node.children[property] = ConvertToNodeGraph(obj[property], `${path}/${property}`, shortestPathNodes);
     }
 
     return node;
