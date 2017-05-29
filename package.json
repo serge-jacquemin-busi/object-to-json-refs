@@ -1,9 +1,9 @@
 {
   "name": "object-to-json-refs",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Convert back and from object to JSON with references",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "pretest": "rmdir dist\\spec /S /Q & tsc",
     "test": "jasmine"
