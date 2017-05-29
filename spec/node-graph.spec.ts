@@ -311,10 +311,35 @@ describe('ConvertToNodeGraph', () => {
                 { target: target.d, node: result },
                 { target: target.e, node: result.children.b },
                 { target: target.c.b, node: result.children.f },
-            ]            
+            ]
 
             targetToNodes.forEach(({ target, node }) => {
                 expect(shortestPathNodes.get(target)).toBe(node);
             });
+        });
+
+    it(`sould only include descedants for references with no know previous shorter path 
+    when the tree gets traversed in pre-order`, () => {
+            // Arrange
+            const shortestPathNodes: ReferenceToNode = new WeakMap<any, Node>();
+            const referenceRepeated = {
+                propery: 'value'
+            };
+            const shorterPath = 'a';
+            const longerPath =  'aa';
+            const longestPath = 'aaa';
+            const target: any = {
+                [longerPath]: referenceRepeated,
+                [shorterPath]: referenceRepeated,
+                [longestPath]: referenceRepeated
+            }
+
+            // Act
+            const result = ConvertToNodeGraph(target, '', shortestPathNodes);
+
+            // Assert
+            expect(result.children[longerPath].children).not.toEqual({});
+            expect(result.children[shorterPath].children).not.toEqual({});
+            expect(result.children[longestPath].children).toEqual({});
         });
 });
