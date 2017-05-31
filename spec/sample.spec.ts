@@ -1,7 +1,6 @@
 import { ConvertToJsonRefsReady, JsonRefReadyToObject } from '../src/index'
-import * as casual from 'casual';
 
-fdescribe(`[Sample]
+xdescribe(`[Sample]
 ConvertToJsonRefsReady`, () => {
     it('should properly convert an object', () => {
         const obj: any = {
