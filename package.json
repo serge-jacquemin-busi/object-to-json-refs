@@ -1,6 +1,6 @@
 {
   "name": "object-to-json-refs",
-  "version": "2.0.0",
+  "version": "2.0.0-beta",
   "description": "Convert back and from object to JSON with references",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
