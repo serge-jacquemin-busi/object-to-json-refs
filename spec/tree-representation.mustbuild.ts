@@ -3,7 +3,7 @@ import {
     PrimitiveRepresentation,
     ReferenceRepresentation,
     TreeRepresentation
-} from '../src/tree-representation';
+} from '../src/models/tree-representation';
 import { primitives } from './util/casual-util';
 import * as casual from 'casual';
 

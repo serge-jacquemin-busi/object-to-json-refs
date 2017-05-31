@@ -1,5 +1,5 @@
-import { Node } from '../src/object-node';
-import { ConvertToNodeGraph, ReferenceToNode } from '../src/node-graph';
+import { Node } from '../src/models/node';
+import { ConvertToNodeGraph, ReferenceToNode } from '../src/convert-to-node-graph';
 import { GetRandomPrimitive } from './util/casual-util';
 import * as casual from 'casual';
 import './util/array-util';

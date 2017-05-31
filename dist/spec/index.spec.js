@@ -35,37 +35,116 @@ ConvertToJsonRefsReady`, () => {
         };
         // Act
         const result = index_1.ConvertToJsonRefsReady(obj);
-        console.log(obj);
-        console.log(result);
         // Assert
         expect(result).toEqual(expected);
     });
 });
-describe(`[Sample]
-ConvertToJsonRefsReady`, () => {
-    it('should properly convert an object', () => {
-        const obj = {
-            fruit: {
-                name: 'banana'
-            },
-            vegetable: {
-                color: 'green',
-                rating: {
-                    value: 3,
-                    max: 5
-                },
-                name: 'Cumcumber'
-            },
-            celebrities: [
-                { name: 'Robert Travolta' },
-                { name: 'Jhon De Niro' }
-            ]
+describe(`[Integration Test]
+JsonRefReadyToObject`, () => {
+    it(`should convert primitive unchanged`, () => {
+        //  Arrange
+        const primitive = casual_util_1.GetRandomPrimitive();
+        // Act
+        const result = index_1.JsonRefReadyToObject(primitive);
+        // Arrabe
+        expect(result).toBe(primitive);
+    });
+    it(`should convert empty object equivalent to itself`, () => {
+        //  Arrange
+        const object = {};
+        // Act
+        const result = index_1.JsonRefReadyToObject(object);
+        // Arrabe
+        expect(result).toEqual(object);
+    });
+    it(`should convert empty array equivalent to itself`, () => {
+        //  Arrange
+        const array = [];
+        // Act
+        const result = index_1.JsonRefReadyToObject(array);
+        // Arrabe
+        expect(result).toEqual(array);
+    });
+    it(`should convert object tree with no $ref equivalent to itself`, () => {
+        //  Arrange
+        const object = {
+            [casual.word]: [casual_util_1.GetRandomPrimitive()],
+            [casual.word]: {
+                [casual.word]: casual_util_1.GetRandomPrimitive()
+            }
         };
-        obj.fruit.favoriteCelebrity = obj.celebrities[1];
-        obj.robert = obj.celebrities[0];
-        obj.knownRatings = [obj.vegetable.rating];
-        const result = index_1.ConvertToJsonRefsReady(obj);
-        console.log(result);
+        // Act
+        const result = index_1.JsonRefReadyToObject(object);
+        // Arrabe
+        expect(result).toEqual(object);
+    });
+    it(`should convert array with no $ref equivalent to itself`, () => {
+        //  Arrange
+        const array = [
+            [casual_util_1.GetRandomPrimitive()],
+            {
+                [casual.word]: casual_util_1.GetRandomPrimitive()
+            }
+        ];
+        // Act
+        const result = index_1.JsonRefReadyToObject(array);
+        // Arrabe
+        expect(result).toEqual(array);
+    });
+    it(`should convert object tree with one $ref properly
+    when $ref appears after actual reference`, () => {
+        //  Arrange
+        const propertyForRef = casual.word;
+        const propertyToRef = casual.word;
+        const object = {
+            [propertyForRef]: [casual_util_1.GetRandomPrimitive()],
+            [propertyToRef]: {
+                $ref: `/${propertyForRef}`
+            },
+        };
+        // Act
+        const result = index_1.JsonRefReadyToObject(object);
+        // Arrabe
+        expect(Object.getOwnPropertyNames(result)).toEqual(Object.getOwnPropertyNames(object));
+        expect(result[propertyForRef]).toEqual(object[propertyForRef]);
+        expect(result[propertyToRef]).toBe(result[propertyForRef]);
+    });
+    it(`should convert object tree with one $ref properly
+    when $ref appears before actual reference`, () => {
+        //  Arrange
+        const propertyForRef = casual.word;
+        const propertyToRef = casual.word;
+        const object = {
+            [propertyToRef]: {
+                $ref: `/${propertyForRef}`
+            },
+            [propertyForRef]: [casual_util_1.GetRandomPrimitive()]
+        };
+        // Act
+        const result = index_1.JsonRefReadyToObject(object);
+        // Arrabe
+        expect(Object.getOwnPropertyNames(result)).toEqual(Object.getOwnPropertyNames(object));
+        expect(result[propertyForRef]).toEqual(object[propertyForRef]);
+        expect(result[propertyToRef]).toBe(result[propertyForRef]);
+    });
+});
+describe(`[Integration Test]
+ConvertToJsonRefsReady / JsonRefReadyToObject`, () => {
+    it(`should be symetric`, () => {
+        // Arrange
+        const obj = {
+            a: {},
+            b: [0, 1, 2, {}],
+            c: {}
+        };
+        obj.a.b = obj.b;
+        obj.b[3].a = obj.a;
+        obj.c.obj = obj;
+        // Act
+        const convertion = index_1.ConvertToJsonRefsReady(obj);
+        const andBack = index_1.JsonRefReadyToObject(convertion);
+        // Assert
+        expect(andBack).toEqual(obj);
     });
 });
 //# sourceMappingURL=index.spec.js.map

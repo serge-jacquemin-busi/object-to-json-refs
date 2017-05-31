@@ -1,15 +1,4 @@
-export class Node {
-    public children: {
-        [property: string]: Node;
-    }
-
-    constructor(
-        public path: string,
-        public target: any
-        ) {
-            this.children = {};
-    }
-}
+import { Node } from './models/node';
 
 export function ClosestFromRoot(a: Node, b: Node): number {
     if (a.path === b.path) {

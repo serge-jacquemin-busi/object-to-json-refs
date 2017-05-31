@@ -30,6 +30,7 @@
     "jasmine": "^2.6.0"
   },
   "dependencies": {
-    "casual": "^1.5.12"
+    "casual": "^1.5.12",
+    "rxjs": "^5.4.0"
   }
 }

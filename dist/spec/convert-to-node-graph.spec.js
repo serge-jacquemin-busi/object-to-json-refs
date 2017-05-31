@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const object_node_1 = require("../src/object-node");
-const node_graph_1 = require("../src/node-graph");
+const node_1 = require("../src/models/node");
+const convert_to_node_graph_1 = require("../src/convert-to-node-graph");
 const casual_util_1 = require("./util/casual-util");
 const casual = require("casual");
 require("./util/array-util");
@@ -12,7 +12,7 @@ describe('ConvertToNodeGraph', () => {
         const target = casual_util_1.GetRandomPrimitive();
         const path = casual.word;
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target, path);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target, path);
         // Assert
         expect(result.target).toBe(target);
         expect(result.path).toBe(path);
@@ -23,7 +23,7 @@ describe('ConvertToNodeGraph', () => {
         const target = {};
         const path = casual.word;
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target, path);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target, path);
         // Assert
         expect(result.target).toBe(target);
         expect(result.path).toBe(path);
@@ -34,7 +34,7 @@ describe('ConvertToNodeGraph', () => {
         const target = [];
         const path = casual.word;
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target, path);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target, path);
         // Assert
         expect(result.target).toBe(target);
         expect(result.path).toBe(path);
@@ -44,7 +44,7 @@ describe('ConvertToNodeGraph', () => {
         // Arrange
         const target = casual_util_1.GetRandomPrimitive();
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         expect(result.children).toEqual({});
     });
@@ -53,7 +53,7 @@ describe('ConvertToNodeGraph', () => {
         // Arrange
         const target = {};
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         expect(result.children).toEqual({});
     });
@@ -62,7 +62,7 @@ describe('ConvertToNodeGraph', () => {
         // Arrange
         const target = [];
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         expect(result.children).toEqual({});
     });
@@ -78,7 +78,7 @@ describe('ConvertToNodeGraph', () => {
             [property.name]: property.value
         }), {});
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         const childrenKeys = Object.keys(result.children).sort();
         expect(childrenKeys).toEqual(randomProperties.map(property => property.name));
@@ -91,7 +91,7 @@ describe('ConvertToNodeGraph', () => {
         const target = new Array(20).fill(null)
             .map(() => casual_util_1.GetRandomPrimitive());
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         const targetStringKeys = Object.keys(target).sort();
         const childrenKeys = Object.keys(result.children).sort();
@@ -123,11 +123,11 @@ describe('ConvertToNodeGraph', () => {
                 }
             }
         };
-        const expected = new object_node_1.Node('', target);
+        const expected = new node_1.Node('', target);
         expected.children =
-            Object.keys(target).reduce((children, key) => Object.assign(children, { [key]: node_graph_1.ConvertToNodeGraph(target[key], `/${key}`) }), {});
+            Object.keys(target).reduce((children, key) => Object.assign(children, { [key]: convert_to_node_graph_1.ConvertToNodeGraph(target[key], `/${key}`) }), {});
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         expect(result).toEqual(expected);
     });
@@ -155,11 +155,11 @@ describe('ConvertToNodeGraph', () => {
                 ]
             ]
         ];
-        const expected = new object_node_1.Node('', target);
+        const expected = new node_1.Node('', target);
         expected.children =
-            Object.keys(target).reduce((children, key) => Object.assign(children, { [key]: node_graph_1.ConvertToNodeGraph(target[parseInt(key)], `/${key}`) }), {});
+            Object.keys(target).reduce((children, key) => Object.assign(children, { [key]: convert_to_node_graph_1.ConvertToNodeGraph(target[parseInt(key)], `/${key}`) }), {});
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         expect(result).toEqual(expected);
     });
@@ -187,11 +187,11 @@ describe('ConvertToNodeGraph', () => {
                 }
             ]
         };
-        const expected = new object_node_1.Node('', target);
+        const expected = new node_1.Node('', target);
         expected.children =
-            Object.keys(target).reduce((children, key) => Object.assign(children, { [key]: node_graph_1.ConvertToNodeGraph(target[key], `/${key}`) }), {});
+            Object.keys(target).reduce((children, key) => Object.assign(children, { [key]: convert_to_node_graph_1.ConvertToNodeGraph(target[key], `/${key}`) }), {});
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target);
         // Assert
         expect(result).toEqual(expected);
     });
@@ -221,7 +221,7 @@ describe('ConvertToNodeGraph', () => {
             ]
         };
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target, '', shortestPathNodes);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target, '', shortestPathNodes);
         // Assert
         const targetToNode = function (node) {
             const children = node.children;
@@ -253,7 +253,7 @@ describe('ConvertToNodeGraph', () => {
         target.e = target.b;
         target.f = target.c.b;
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target, '', shortestPathNodes);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target, '', shortestPathNodes);
         // Assert
         const targetToNodes = [
             { target: target.b, node: result.children.b },
@@ -282,11 +282,11 @@ describe('ConvertToNodeGraph', () => {
             [longestPath]: referenceRepeated
         };
         // Act
-        const result = node_graph_1.ConvertToNodeGraph(target, '', shortestPathNodes);
+        const result = convert_to_node_graph_1.ConvertToNodeGraph(target, '', shortestPathNodes);
         // Assert
         expect(result.children[longerPath].children).not.toEqual({});
         expect(result.children[shorterPath].children).not.toEqual({});
         expect(result.children[longestPath].children).toEqual({});
     });
 });
-//# sourceMappingURL=node-graph.spec.js.map
+//# sourceMappingURL=convert-to-node-graph.spec.js.map

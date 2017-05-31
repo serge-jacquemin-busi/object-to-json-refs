@@ -1,4 +1,5 @@
-import { Node, GetOneWithShortestPath } from './object-node';
+import { Node } from './models/node';
+import { GetOneWithShortestPath } from './node-util';
 
 export type ReferenceToNode = WeakMap<any, Node>;
 
