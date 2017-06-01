@@ -156,6 +156,10 @@ references still equal:
 
 ## Changelog
 
+### Version 2.0.1
+
+Removed needless RxJS dependency
+
 ### Version 2.0.0
 
 Support transformation both way:

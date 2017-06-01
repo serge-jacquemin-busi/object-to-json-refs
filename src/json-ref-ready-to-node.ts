@@ -1,7 +1,6 @@
 import { TreeRepresentation } from './models/tree-representation';
 import { Node } from './models/node';
 import { IsPrimitive, IsRef } from './type-util';
-import { Observable, BehaviorSubject } from 'rxjs';
 
 export type PathToNode = {
     [path: string]: Node;
